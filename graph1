@@ -103,8 +103,8 @@ class Graph {
       this.edges[node] = [];
    }
 
-   addEdge(node1, node2, weight) {
-      this.edges[node1].push({ node: node2, weight: weight });
+   addEdge(node1, node2) {
+      this.edges[node1].push(node2);
       
    }
 
@@ -120,47 +120,69 @@ class Graph {
    // addDirectedEdge(node1, node2) {
       //   this.edges[node1].push(node2);
    // }
-djikstraAlgorithm(startNode) {
-      let distances = {obj:0,arr:[]};
-      let arr=[];
+   dfsRecursive(start){
 
-      // Stores the reference to previous nodes
-      let prev = {};
-      console.log(this.nodes.length)
-      let pq = new PriorityQueue(this.nodes.length * this.nodes.length);
-
-      // Set distances to all nodes to be infinite except startNode
-      distances[startNode] = 0;
-      pq.enqueue(startNode, 0);
-
-      this.nodes.forEach(node => {
-         if (node !== startNode) distances[node] = Infinity;
-         prev[node] = null;
-      });
-
-      while (!pq.isEmpty()) {
-         let minNode = pq.dequeue();
-         let currNode = minNode.data;
-         let weight = minNode.priority;
-
-         this.edges[currNode].forEach(neighbor => {
-           distances.arr=[];
-            let alt = distances[currNode] + neighbor.weight;
-            if (alt < distances[neighbor.node]) {
-               distances[neighbor.node] = alt;
-               prev[neighbor.node] = currNode;
-               arr.push(neighbor.node);
-               distances.arr.push(neighbor.node)
-               pq.enqueue(neighbor.node, distances.obj[neighbor.node]);
-            }
-         });
-      }
-      return {distances:distances,arr:arr};
    }
+   bfs(start){
+     let queue=[start]
+     let arr=[]
+     let visited={};
+     visited[start]=true;
+     //queue.shift(start);
+     let currNode;
+     while(queue.length){
+       currNode=queue.shift();
+       arr.push(currNode)
+       visited[currNode]=true;
+       this.edges[currNode].forEach(neigh=>{
+         if(!visited[neigh]){
+           queue.push(neigh)
+         }
+       })
+     }
+     return arr;
+        }
+// djikstraAlgorithm(startNode) {
+//       let distances = {obj:0,arr:[]};
+//       let arr=[];
+
+//       // Stores the reference to previous nodes
+//       let prev = {};
+//       console.log(this.nodes.length)
+//       let pq = new PriorityQueue(this.nodes.length * this.nodes.length);
+
+//       // Set distances to all nodes to be infinite except startNode
+//       distances[startNode] = 0;
+//       pq.enqueue(startNode, 0);
+
+//       this.nodes.forEach(node => {
+//          if (node !== startNode) distances[node] = Infinity;
+//          prev[node] = null;
+//       });
+
+//       while (!pq.isEmpty()) {
+//          let minNode = pq.dequeue();
+//          let currNode = minNode.data;
+//          let weight = minNode.priority;
+
+//          this.edges[currNode].forEach(neighbor => {
+//            distances.arr=[];
+//             let alt = distances[currNode] + neighbor.weight;
+//             if (alt < distances[neighbor.node]) {
+//                distances[neighbor.node] = alt;
+//                prev[neighbor.node] = currNode;
+//                arr.push(neighbor.node);
+//                distances.arr.push(neighbor.node)
+//                pq.enqueue(neighbor.node, distances.obj[neighbor.node]);
+//             }
+//          });
+//       }
+//       return {distances:distances,arr:arr};
+//    }
    display() {
       let graph = "";
       this.nodes.forEach(node => {
-         graph += node + "->" + this.edges[node].map(n => n.node).join(", ") + "\n";
+         graph += node + "->" + this.edges[node].map(n => n).join(", ") + "\n";
       });
       console.log(graph);
    }
@@ -171,10 +193,13 @@ djikstraAlgorithm(startNode) {
    g.addNode('B');
    g.addNode('C');
    g.addNode('D');
-   g.addEdge('A','D',2)
-   g.addEdge('B','A',2)
-   g.addEdge('B','D',2)
-   g.addEdge('C','B',2)
-   g.addEdge('D','C',2)
+   g.addNode('E');
+   g.addNode('F');
+   g.addEdge('A','D')
+   g.addEdge('B','A')
+   g.addEdge('B','D')
+   g.addEdge('C','B')
+   g.addEdge('D','C')
+   g.addEdge('B','E')
    g.display();
-   console.log(g.djikstraAlgorithm('A'))
+   console.log(g.bfs('A'))
