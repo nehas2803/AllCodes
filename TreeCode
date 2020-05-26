@@ -44,6 +44,27 @@ class BinarySearchTree{
       }
     
   }
+  Find(value){
+    if(this.root == null) return undefined;
+    let current;
+    let found=false;
+current = this.root;
+
+   while(current && !found){
+    
+if(value <current.value){
+  current = current.left
+}
+else if(value >current.value){
+  current = current.right;
+}
+else{
+  found = true;
+}
+   }
+   if(!found) return undefined;
+   return current;
+  }
 }
 let tree = new BinarySearchTree();
 tree.Insert(20);
