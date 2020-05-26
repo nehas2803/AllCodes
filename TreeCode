@@ -79,6 +79,49 @@ else{
     }
     return visited;
   }
+  dfsPreOrder(){
+    const data =[];
+    let current = this.root;
+    (function dfs(node){
+      data.push(node.value);
+     
+      if(node.left)
+      dfs(node.left)
+      if(node.right)
+      dfs(node.right)
+    })(current)
+    return data;
+  }
+  dfsPostOrder(){
+    const data =[];
+    let current = this.root;
+    (function dfs(node){
+      
+     
+      if(node.left)
+      dfs(node.left)
+      if(node.right)
+      dfs(node.right)
+      data.push(node.value);
+    })(current)
+    return data;
+  }
+  dfsInOrder(){
+    const data =[];
+    let current = this.root;
+    (function dfs(node){
+      
+     
+      if(node.left)
+      dfs(node.left)
+      data.push(node.value);
+      if(node.right)
+      dfs(node.right)
+      
+    })(current)
+    return data;
+  }
+  
 }
 let tree = new BinarySearchTree();
 tree.Insert(20);
@@ -91,3 +134,4 @@ tree.Insert(10);
 tree.Insert(12);
 console.log(tree);
 console.log(tree.bfs())
+console.log(tree.dfsInOrder())
