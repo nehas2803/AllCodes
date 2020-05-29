@@ -87,6 +87,27 @@ class LinkedList{
     }
     return this;
   }
+  get(value){
+   let current; 
+   if(!this.head) return undefined;
+   if(value === 1){
+      return this.head
+    }
+    if(this.length===value){
+      return this.tail;
+    }
+    if(this.length<value){
+     return undefined;
+    }
+    else{
+       current = this.head;
+      for(let i=1;i<value;i++){
+        //.log(current)
+        current = current.next
+      }
+    }
+   return current;
+  }
 
 }
 let list = new LinkedList();
@@ -97,7 +118,6 @@ list.push(16);
 list.push(19);
 list.UnShift(5)
 list.pop();
-list.pop();
 
-console.log(list.UnShift(6))
+console.log(list.get(4))
 
