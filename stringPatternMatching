@@ -1,0 +1,63 @@
+//Brute force pattern matching
+function search(pattern, text) {
+        var M = pattern.length;
+        var N = text.length;
+        for (var i = 0; i <= N - M; ++i) {
+            var matched = true;
+            for (var j = 0; j < M; ++j) {
+                if (text.charAt(i + j) != pattern.charAt(j)) {
+                  console.log(text.charAt(i+j))
+                    matched = false;
+                    break;
+                }
+            }
+            if (matched) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    //
+    
+    //rabinKarp pattern matching also with hash
+    function rabinKarp(text, pattern) {
+    if(pattern.length > text.length) {
+        return -1;
+    }
+    if(!pattern){
+        return 0;
+    }
+    var R = 256;
+    var Q = 999991;
+    var M = pattern.length;
+    var RM = 1;
+    
+    for(var a = 1; a <= M-1; a++) {
+        RM = (R*RM)%Q;
+    }
+    var phash = hash(pattern, M, Q, R);
+    var hashy = hash(text, M, Q, R);
+    if(phash === hashy) return 0;
+    
+    for(var i = 1; i+M-1 <= text.length-1; i++) {
+        var nextHash = (hashy + Q - text.charCodeAt(i-1)*RM%Q) % Q;
+        nextHash = (nextHash*R%Q+text.charCodeAt(i+M-1))%Q;
+        if(nextHash === phash) {
+            return i;
+        }
+        hashy = nextHash;
+    }
+    return -1;
+};
+
+var hash = function(str, len, Q, R) {
+    var h = 0;
+    for(var i = 0; i < len; i++) {
+        h = (h*R+str.charCodeAt(i))%Q;
+    }
+    return h;
+};
+//
+
+    
+    
