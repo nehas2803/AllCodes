@@ -1,4 +1,4 @@
-//Brute force pattern matching
+//Brute force pattern matching O(n*m)
 function search(pattern, text) {
         var M = pattern.length;
         var N = text.length;
@@ -19,7 +19,7 @@ function search(pattern, text) {
     }
     //
     
-    //rabinKarp pattern matching also with hash
+    //rabinKarp pattern matching also with hash O(m+n)
     function rabinKarp(text, pattern) {
     if(pattern.length > text.length) {
         return -1;
@@ -57,6 +57,58 @@ var hash = function(str, len, Q, R) {
     }
     return h;
 };
+//
+Knuth morris prath algo(create a lookup table for the pattern O(m+n)
+function kmp_search(s, w) {  
+    var m = 0, i = 0,   
+        pos, cnd, t,  
+        slen = s.length,  
+        wlen = w.length;  
+      
+    /* String to array conversion */  
+    s = s.split("");  
+    w = w.split("");      
+             console.log(w)
+    /* Construct the lookup table */  
+    t = [-1, 0];  
+    for ( pos = 2, cnd = 0; pos < wlen; ) { 
+      console.log(pos) 
+        if ( w[pos-1] === w[cnd] ) {  
+            t[pos] = cnd + 1;  
+            pos++; cnd++;  
+        }  
+        else if ( cnd > 0 )  
+          cnd = t[cnd];  
+        else  { 
+          
+          t[pos++] = 0;
+         }  
+    }   
+      
+      console.log(t)
+    /* Perform the search */ 
+    console.log(s) 
+    console.log(w)
+    while ( m + i < slen ) {  
+      console.log(s[m+i],w[i])
+      
+        if ( s[m+i] === w[i] ) {  
+            i++; //i=1 
+            if ( i === wlen )   
+              return m;  
+        }  
+        else {  
+            m += i - t[i];  //m=m+i-t[i] = 0+1-0=1
+            if ( t[i] > -1 )  
+                i = t[i];  
+            else  
+                i = 0;  
+        }  
+    }  
+    return -1;  
+}  
+console.log(kmp_search('aabbbccabc','ababc'));
+
 //
 
     
