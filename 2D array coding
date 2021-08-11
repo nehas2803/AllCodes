@@ -1,0 +1,23 @@
+//Find max hourglass value
+var items = [
+  [1, 1, 1, 0, 0, 0],
+  [0, 1, 0, 0, 0, 0],
+  [1, 1, 1, 0, 0, 0],
+[0, 0, 2, 4, 4, 0],
+[0, 0, 0, 2, 0, 0],
+[0, 0, 1, 2, 4, 0],
+];
+function hourglassSum(arr) {
+    let allhourglass = [];
+  for(let row =0;row<=3;row++){
+        for(let i=0;i<=3;i++){
+          allhourglass.push([arr[row][i],arr[row][i+1],arr[row][i+2],arr[row+1][i+1],arr[row+2][i],arr[row+2][i+1],arr[row+2][i+2]])  
+        }
+      
+    }
+   console.log(allhourglass)
+  let a = allhourglass.map(item=>item.reduce(reducer))
+  
+
+}
+hourglassSum(items);
