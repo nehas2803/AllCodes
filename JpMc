@@ -1,0 +1,88 @@
+
+//above question will give result as after both completed, func2, funct1,
+but we want result in syncronous way (func1,func2,after both completed)
+const func1 = () =>{
+	setTimeout(()=>{
+    console.log("func1");
+  }, 1000)
+}
+
+const func2 = () =>{
+	setTimeout(()=>{
+    console.log("func2");
+  }, 500)
+}
+
+const caller =async () =>{
+  await func1();
+  await func2();
+  console.log("after both completed.")
+}
+
+caller();
+
+//solution is promise
+const myPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('func1');
+  }, 300);
+});
+const myPromise2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('func2');
+  }, 300);
+});
+
+const caller =async() =>{
+  await myPromise.then(res=>console.log(res));
+ await  myPromise2.then(res=>console.log(res));
+  console.log("after both completed.")
+}
+
+caller();
+
+
+
+
+
+
+
+let arr1=[1,2,3,45,[1,2,3,4,5]]
+let arr2=[3,6,7,4,5,8];
+let a =[];
+
+for(let i in arr1){
+if(typeof(arr1[i]) === 'number'){
+a.push(arr1[i]);
+}
+else{
+for(let j in arr1[i]){
+
+a.push(arr1[i][j]);
+}
+}
+}
+a=[...a,...arr2];
+console.log(a);
+
+
+
+
+
+const user = [
+	{ name : "A", company:"IBM", salary:20000},
+  { name : "B", company:"JP", salary:30000},
+  { name : "C", company:"Wallmart", salary:25000},
+  { name : "D", company:"Microsoft", salary:10000},
+]
+
+//Find maximum salary
+//Find total salary
+
+console.log(user);
+//solution
+
+let a = user.filter((item)=>item.salary === Math.max(...(user.map(item=>item.salary))))
+
+
+
