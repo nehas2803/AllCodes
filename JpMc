@@ -64,7 +64,31 @@ a.push(arr1[i][j]);
 }
 a=[...a,...arr2];
 console.log(a);
+/////////////////////////////
 
+
+//find total number of element whos arr[i]+1 is also present in arr.
+const words = [1,2,2,3,4];
+let count = {};
+let result =0;
+for(let i=0;i<words.length;i++)
+{
+if(count[words[i]]){
+count[words[i]]+=1
+}
+else{
+count[words[i]] = 1
+}
+}
+for(let p in count){
+
+if(count[p]===count[+p+1]){
+result = result+count[p]
+}
+else if(count[+p+1]){
+result = result+Math.min(parseInt(count[p]),parseInt(count[+p+1]))
+}
+}
 
 
 
