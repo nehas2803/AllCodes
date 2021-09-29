@@ -1,0 +1,32 @@
+
+binary search and find the missing element position
+function searchAndShow(){
+let array = [1,3,5,6];
+let n = 4;
+let start=0;
+let temp = start;
+let end=array.length;
+let mid =0;
+while(start<=end){
+mid = Math.floor(start+end/2)
+if(array[mid]==n){
+return mid;
+}
+if(array[mid]<n){
+start = start+1;
+}
+else 
+{
+end = end-1;
+}
+if(array[start]<n && array[end]<n){
+return mid;
+}
+
+
+
+
+}
+//return mid;
+}
+console.log(searchAndShow())
