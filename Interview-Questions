@@ -1,0 +1,262 @@
+const arr = [1,2,4,2,5,8,4,8,2,2] //write code to find the count of repeated numbers in pairs 
+
+function Repated(arr){
+let obj = {};
+
+for(let i in arr){
+if(obj[arr[i]]){
+obj[arr[i]]=1;
+}
+else{
+obj[arr[i]]++;
+}
+}
+return obj;
+}
+//
+function Merge(){
+let arr=[1,2,10,0,0,0]
+let arr2=[2,5,6];
+let i=0;
+let j=arr.length-1;
+let m=0;
+while(i<arr.length && j>0){
+if(arr[j]==0){
+m=0;
+while(m<arr.length){
+if(arr2[i]<arr[m]){
+let temp = arr[m];
+arr[j]=arr[m];
+arr[m]=arr2[i];
+break;
+}
+m++;
+}
+}
+i++;
+j--;
+}
+return arr;
+}
+//
+find unique elements in the array of objects [{a:1,b:'hello'},{a:1,b:'hello'},{a:2,b:'hello'},{a:2:,b:'hi'}]
+//Currying with the recursion
+sum(1)(2)(3)() = 6
+
+function sum(a){
+return function (b){
+return function (c){
+return function(){
+return a+b+c;
+}}
+}
+}
+
+sum(1)(2)(3)(4)() = 10
+
+//output
+function outer() {   
+
+    console.log("abc");
+
+    (function() {
+
+        var foo = 3;
+
+        //Arithemetic operation taking 1min
+		sync();
+
+        console.log("output");
+
+    })();
+
+
+
+    //console.log(foo);
+
+    console.log("def");
+
+}
+//
+var a = 1; 
+
+function b() { 
+
+    a = 10; 
+	if(){
+var c= 5;
+}
+    return; 
+
+    //function a() {} 
+
+} 
+
+b(); 
+
+console.log(a); 
+a=1;
+var a;
+//
+function outer() {   
+
+    var b = 10;
+
+  function inner() {
+
+        var a = 20; 
+
+        console.log(a+b);
+
+  }
+
+   return inner;
+
+}
+
+var X = outer();
+
+console.log(X); //inner
+
+console.log(X()); //30
+//
+function b(){
+let a=1;
+return function c(b){
+return a+b;
+}
+}
+
+let d = b();
+d(2);
+
+class Animal{
+walk(){
+return true;
+}
+
+}
+
+class Rabit extend Animal{
+}
+
+rab = new Rabit
+ra.walk();
+
+const test = {
+   comp: ‘MyCompany’,
+   role: ‘dev’,
+   func: () => {
+       return `In ${this.comp} i am a ${this.role}`
+   }
+}
+//
+
+//above question will give result as after both completed, func2, funct1,
+but we want result in syncronous way (func1,func2,after both completed)
+const func1 = () =>{
+	setTimeout(()=>{
+    console.log("func1");
+  }, 1000)
+}
+
+const func2 = () =>{
+	setTimeout(()=>{
+    console.log("func2");
+  }, 500)
+}
+
+const caller =async () =>{
+  await func1();
+  await func2();
+  console.log("after both completed.")
+}
+
+caller();
+
+//solution is promise
+const myPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('func1');
+  }, 300);
+});
+const myPromise2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('func2');
+  }, 300);
+});
+
+const caller =async() =>{
+  await myPromise.then(res=>console.log(res));
+ await  myPromise2.then(res=>console.log(res));
+  console.log("after both completed.")
+}
+
+caller();
+
+
+
+
+
+
+
+let arr1=[1,2,3,45,[1,2,3,4,5]]
+let arr2=[3,6,7,4,5,8];
+let a =[];
+
+for(let i in arr1){
+if(typeof(arr1[i]) === 'number'){
+a.push(arr1[i]);
+}
+else{
+for(let j in arr1[i]){
+
+a.push(arr1[i][j]);
+}
+}
+}
+a=[...a,...arr2];
+console.log(a);
+
+
+
+
+
+const user = [
+	{ name : "A", company:"IBM", salary:20000},
+  { name : "B", company:"JP", salary:30000},
+  { name : "C", company:"Wallmart", salary:25000},
+  { name : "D", company:"Microsoft", salary:10000},
+]
+
+//Find maximum salary
+//Find total salary
+
+console.log(user);
+//solution
+
+let a = user.filter((item)=>item.salary === Math.max(...(user.map(item=>item.salary))))
+//
+//find total number of element whos arr[i]+1 is also present in arr.
+const words = [1,2,2,3,4];
+let count = {};
+let result =0;
+for(let i=0;i<words.length;i++)
+{
+if(count[words[i]]){
+count[words[i]]+=1
+}
+else{
+count[words[i]] = 1
+}
+}
+for(let p in count){
+
+if(count[p]===count[+p+1]){
+result = result+count[p]
+}
+else if(count[+p+1]){
+result = result+Math.min(parseInt(count[p]),parseInt(count[+p+1]))
+}
+}
+//
